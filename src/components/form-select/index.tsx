@@ -77,7 +77,6 @@ const FormSelect: FC<IProps> = (props: IProps) => {
       showSearch
       allowClear
       optionFilterProp="title"
-      value={value}
       dropdownRender={(menu) => {
         return (
           <Spin spinning={loading} tip="请稍后...">{menu}</Spin>
@@ -86,7 +85,6 @@ const FormSelect: FC<IProps> = (props: IProps) => {
       onPopupScroll={onPopupScroll}
       onSearch={onSearch}
       onDropdownVisibleChange={onDropdownVisibleChange}
-      onChange={(e) => onChange(e)}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       optionLabelProp="title"
       className={`${style.selectBox} ${props.className}`}
