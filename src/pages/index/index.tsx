@@ -10,6 +10,7 @@ import AuthRouter from '~/components/auth-route';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import moment from 'moment';
+import { PATHS } from '~/routes/path.config';
 
 const App: FC = () => {
   useEffect(() => {
@@ -19,7 +20,7 @@ const App: FC = () => {
     <ConfigProvider locale={zhCN}>
       <BrowserRouter>
         <Switch>
-          <AuthRouter path="/" component={Main} />
+          <AuthRouter path={PATHS.Main} component={Main}  />
         </Switch>
       </BrowserRouter>
     </ConfigProvider>

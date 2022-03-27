@@ -1,0 +1,23 @@
+.body {
+  width: 100%;
+  position: relative;
+  .footerBox {
+    :global {
+      .ali-icon-font {
+        font-size: 52px;
+        cursor: pointer;
+        transition: all 0.5s;
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+  .pictureWall {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+}

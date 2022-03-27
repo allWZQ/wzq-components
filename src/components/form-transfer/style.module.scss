@@ -1,0 +1,19 @@
+.body {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  .contentBox {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #e8e8e8;
+  }
+  .submitBox {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 24px;
+    button + button {
+      margin-left: 12px;
+    }
+  }
+}

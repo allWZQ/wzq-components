@@ -1,0 +1,34 @@
+.body {
+  width: 100%;
+  .upload {
+    display: inline-block;
+    width: 100%;
+    :global {
+      .ant-upload {
+        width: 100%;
+      }
+    }
+    .uploadBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      font-size: 20px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+.disableBox {
+  cursor: no-drop !important;
+  color: #c8c8c8;
+  button {
+    cursor: no-drop !important;
+    color: #c8c8c8;
+    &:hover {
+      color: #c8c8c8;
+    }
+    &:focus {
+      color: #c8c8c8;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import RootStore from '~/stores';
-import { PATHS } from '~/routes/paths.config';
+import { PATHS } from '~/routes/path.config';
 import { tool } from './Tool';
 
 export class SuperTool {
@@ -12,7 +12,7 @@ export class SuperTool {
     if (context) {
       context.history.push(url);
     } else {
-      window.location.href = PATHS.PrivilegeManage;
+      window.location.href = PATHS.Main;
     }
     tool.scrollToTop();
   };
@@ -21,7 +21,7 @@ export class SuperTool {
     if (context) {
       context.history.replace(url);
     } else {
-      window.location.href = PATHS.PrivilegeManage;
+      window.location.href = PATHS.Main;
     }
     tool.scrollToTop();
   };

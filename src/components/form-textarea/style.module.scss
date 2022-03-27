@@ -1,0 +1,78 @@
+@import '~/assets/style/common.scss';
+
+.body {
+  width: 100%;
+  display: flex;
+  :global {
+    .ant-input-textarea-show-count[data-count='200 / 200']::after {
+      color: $warning !important;
+    }
+  }
+  .textArea {
+    flex: 1;
+    :global {
+      .ant-input {
+        overflow: auto;
+      }
+    }
+    &.bg {
+      :global {
+        .ant-input {
+          background: url('#{$ali-oss}/home/public/textAreaBg.gif');
+          background-repeat: no-repeat;
+          background-position: right bottom;
+        }
+      }
+    }
+    &.noBg {
+      :global {
+        .ant-input {
+          background-position: left bottom;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $PCMinWidth) {
+  .body {
+    :global {
+      .ant-input-textarea-show-count::after {
+        font-size: 15px;
+      }
+    }
+    .textArea {
+      :global {
+        .ant-input {
+          height: 160px !important;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $moblieMaxWidth) {
+  .body {
+    :global {
+      .ant-input-textarea-show-count::after {
+        font-size: pxToVw(30);
+      }
+    }
+    .textArea {
+      :global {
+        .ant-input {
+          height: pxToVw(320) !important;
+          font-size: pxToVw(32);
+        }
+      }
+      &.bg {
+        :global {
+          .ant-input {
+            background-size: 50% 50%;
+          }
+        }
+      }
+    }
+  }
+}

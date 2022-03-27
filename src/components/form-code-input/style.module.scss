@@ -1,0 +1,45 @@
+@mixin codebox {
+  display: inline-flex;
+  align-items: center;
+  line-height: 40px;
+  margin: 0px 6px;
+}
+
+@mixin inputSty {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: baseline;
+  outline: none;
+  color: #5b5c60;
+  border: 1px solid #afb0b2;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.codeboxContainer {
+  .codeboxFieldWrap {
+    @include codebox;
+    &.current {
+      input {
+        border: 1px solid #3569fd;
+        color: #3569fd;
+      }
+    }
+    input {
+      @include inputSty;
+    }
+  }
+
+  .line {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    width: 8px;
+    overflow: hidden;
+    color: #9fa0a2;
+  }
+}

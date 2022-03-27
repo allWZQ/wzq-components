@@ -26,7 +26,6 @@ interface RouteItem {
   isExact?: boolean;
   path?: string;
   component?: any;
-  children?: RouteItem[];
 }
 
 interface User {

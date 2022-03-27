@@ -1,0 +1,30 @@
+@import '~/assets/style/common.scss';
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: $PCMinWidth) {
+  .submit {
+    margin-bottom: 24px;
+    .submitBox {
+      height: 40px;
+      padding: 0px 70px;
+      border-radius: 2px;
+    }
+  }
+}
+
+@media screen and (max-width: $moblieMaxWidth) {
+  .submit {
+    margin-bottom: pxToVw(50);
+    .submitBox {
+      height: pxToVw(80);
+      padding: 0 pxToVw(140);
+      border-radius: pxToVw(4);
+      font-size: pxToVw(28);
+    }
+  }
+}

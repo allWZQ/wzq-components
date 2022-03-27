@@ -2,49 +2,8 @@
   display: flex;
   height: 100%;
   width: 100%;
-
-  :global {
-    .ant-menu-sub {
-      background-color: #39465e !important;
-    }
-
-    .ant-menu-submenu-open .ant-menu-submenu-title {
-      background-color: #333f54 !important;
-      height: 48px;
-      line-height: 48px;
-      margin: 0;
-    }
-    .ant-spin-container {
-      transition: none;
-    }
-  }
-
-  .box {
-    .header {
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-left: 20px;
-      height: 64px;
-      width: 100%;
-      box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
-      .leftBox {
-        font-size: 20px;
-        .icon {
-          margin-right: 20px;
-        }
-      }
-      .rightBox {
-        font-size: 14px;
-        padding-right: 40px;
-      }
-    }
-    .body {
-      // background: white;
-      width: 100%;
-      padding: 15px 30px;
-    }
+  .body {
+    width: 100%;
+    padding: 15px 30px;
   }
 }

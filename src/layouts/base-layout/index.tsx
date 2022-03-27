@@ -1,4 +1,4 @@
-import React, { FC, useLayoutEffect, useState } from 'react';
+import React, { FC, useLayoutEffect } from 'react';
 import style from './style.scss';
 import { observer } from 'mobx-react';
 import { useInjectedStore } from '~/stores/useStore';

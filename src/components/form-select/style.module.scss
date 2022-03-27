@@ -1,0 +1,24 @@
+.selectBox {
+  :global {
+    .ant-select-item-option-state {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .itemBox {
+    display: flex;
+    align-items: center;
+    .itemIcon {
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      background-color: #3569fd;
+      border-radius: 100%;
+      color: #fff;
+    }
+    .itemText {
+      margin-left: 10px;
+    }
+  }
+}

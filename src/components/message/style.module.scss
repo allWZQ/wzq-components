@@ -1,0 +1,16 @@
+@import '~/assets/style/common.scss';
+
+@media screen and (max-width: $moblieMaxWidth) {
+  .messageStyle {
+    :global {
+      .ant-message-notice-content {
+        padding: pxToVw(20) pxToVw(32);
+        font-size: pxToVw(26);
+      }
+      .anticon {
+        font-size: pxToVw(30);
+        margin-right: pxToVw(16);
+      }
+    }
+  }
+}

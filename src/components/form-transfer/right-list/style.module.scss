@@ -1,0 +1,42 @@
+.body {
+  flex: 1;
+  .listBox {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    .listTitle {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .listDataBox {
+      margin: 10px 0px 16px 0px;
+      .itemBox {
+        display: flex;
+        align-items: center;
+        border-radius: 2px;
+        padding: 0px 16px;
+        .item {
+          flex: 1;
+          height: 30px;
+          padding: 0px 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: #f0f4ff;
+          border: 1px solid #cfdbff;
+          .itemText {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .closeIcon {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

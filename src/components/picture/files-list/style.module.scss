@@ -1,0 +1,64 @@
+.fileBox {
+  max-height: 238px;
+  overflow: hidden;
+  overflow-y: auto;
+  .fileItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    border: 1px solid rgb(207, 207, 207);
+    padding: 6px;
+    margin: 6px 0px 0px 0px;
+    .fileView {
+      display: flex;
+      align-items: center;
+      .imageBox {
+        width: 40px;
+        height: 40px;
+      }
+      .fileName {
+        max-width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-left: 16px;
+      }
+    }
+    .manageBox {
+      display: flex;
+      align-items: center;
+      .state {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        .fileSize {
+          margin-right: 10px;
+        }
+        .retry {
+          margin-left: 10px;
+        }
+      }
+      .loading {
+        width: 22px;
+        height: 22px;
+        margin-right: 12px;
+        animation: loading 1s infinite cubic-bezier(0, 0, 1, 1);
+      }
+    }
+    .closeIcon {
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
