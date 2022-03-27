@@ -1,0 +1,58 @@
+@import '~/.assets/style/common.scss';
+
+.tabs {
+  :global {
+    .ant-tabs-nav-operations {
+      padding-bottom: 15px;
+    }
+
+    .ant-tabs-nav-wrap {
+      margin-bottom: 15px;
+      overflow-y: visible !important;
+
+      .ant-tabs-nav-list {
+        .ant-tabs-tab {
+          border-radius: 4px;
+
+          &-active {
+            background: #04a9f5;
+            -webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+            border: 1px solid transparent;
+
+            .ant-tabs-tab-btn,
+            .ant-tabs-tab-remove {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+  :global(.ant-tabs-nav) {
+    &::before {
+      border-bottom: none;
+    }
+  }
+  :global(.ant-tabs-nav > div) {
+    display: flex;
+  }
+  :global(.ant-tabs-card-bar .ant-tabs-tab) {
+    padding: 0;
+    user-select: none;
+    :global(.ant-tabs-close-x) {
+      display: none;
+    }
+  }
+  :global(.ant-tabs-tab > div) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.tabPane {
+  background: white;
+  margin-top: -16px;
+  padding: 10px;
+}
