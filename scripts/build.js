@@ -1,19 +1,14 @@
 const webpack = require('webpack');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
 const { dirs } = require('./webpack/base');
 const config = require('./webpack/webpack.prod');
+const { greatrc } = require('./config');
+
+const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
 
 const define = require(dirs.root + `/.greatrc.${process.env.RUN_ENV}`);
-config.plugins.push(
-  new webpack.DefinePlugin({
-    ...Object.entries(define).reduce(
-      (result, [key, value]) => ({ ...result, [key]: JSON.stringify(value) }),
-      {}
-    )
-  })
-);
+config.plugins.push(new webpack.DefinePlugin({ ...greatrc(define) }));
 
 measureFileSizesBeforeBuild(dirs.dist)
   .then((res) => {
@@ -27,8 +22,6 @@ measureFileSizesBeforeBuild(dirs.dist)
   });
 
 function build(previousFileSizes) {
-  console.log('开始构建...\n');
-
   const compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
@@ -46,7 +39,7 @@ function build(previousFileSizes) {
 
         messages = formatWebpackMessages({
           errors: [errMessage],
-          warnings: []
+          warnings: [],
         });
       } else {
         messages = formatWebpackMessages(
@@ -60,18 +53,10 @@ function build(previousFileSizes) {
         return reject(new Error(messages.errors.join('\n\n')));
       }
 
-      if (
-        process.env.CI &&
-        (typeof process.env.CI !== 'string' || process.env.CI.toLowerCase() !== 'false') &&
-        messages.warnings.length
-      ) {
-        return reject(new Error(messages.warnings.join('\n\n')));
-      }
-
       return resolve({
         stats,
         previousFileSizes,
-        warnings: messages.warnings
+        warnings: messages.warnings,
       });
     });
   });

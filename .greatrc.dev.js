@@ -1,5 +1,5 @@
 const config = {
-  API_HOST: "http://192.168.31.58:9001",
+  API_HOST: "http://127.0.0.1:9001",
   VERSION: "1.0.0",
   API_ENV: 'dev',
 };

@@ -1,13 +1,10 @@
-const themes = require('../../../src/themes/default');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-const isDev = process.env.RUN_ENV !== 'prod';
-const loader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader;
+const themes = require('./themes');
+const loader = 'style-loader';
 
 module.exports = [
   {
     test: /\.css$/,
-    use: [loader, 'css-loader']
+    use: [loader, 'css-loader'],
   },
   {
     test: /\.(sa|sc)ss$/,
@@ -18,17 +15,17 @@ module.exports = [
         options: {
           importLoaders: true,
           modules: {
-            localIdentName: '[local]__[name]-[hash:base64:4]'
-          }
-        }
+            localIdentName: '[local]__[name]-[hash:base64:4]',
+          },
+        },
       },
       {
         loader: 'sass-loader',
         options: {
-          implementation: require('sass')
-        }
-      }
-    ]
+          implementation: require('sass'),
+        },
+      },
+    ],
   },
   {
     test: /\.less$/,
@@ -39,11 +36,11 @@ module.exports = [
         loader: 'less-loader',
         options: {
           lessOptions: {
-            modifyVars: themes['custom'],
-            javascriptEnabled: true
-          }
-        }
-      }
-    ]
-  }
+            modifyVars: themes,
+            javascriptEnabled: true,
+          },
+        },
+      },
+    ],
+  },
 ];

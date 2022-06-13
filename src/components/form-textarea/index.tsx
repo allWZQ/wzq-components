@@ -1,16 +1,18 @@
-import TextArea from "antd/lib/input/TextArea";
-import React, { FC, useState } from "react";
-import style from "./style.module.scss";
+import { Input } from 'antd';
+import React, { FC, useState } from 'react';
+import style from './style.module.scss';
+
+const { TextArea } = Input;
 
 interface IProps {
   value?: string;
   onChange?: () => void;
-  onPaste?:(e: any) => Promise<void>;
-  placeholder?:string
+  onPaste?: (e: any) => Promise<void>;
+  placeholder?: string;
 }
 
 const FormTextarea: FC<IProps> = (props: IProps) => {
-  const { value, onChange ,onPaste,placeholder="快留下你的足迹鸭~"} = props
+  const { value, onChange, onPaste, placeholder = '快留下你的足迹鸭~' } = props;
   const [hasBg, setHasBg] = useState<boolean>(true);
   return (
     <div className={style.body}>
@@ -26,7 +28,7 @@ const FormTextarea: FC<IProps> = (props: IProps) => {
         className={`${style.textArea} ${hasBg ? style.bg : style.noBg}`}
       />
     </div>
-  )
-}
+  );
+};
 
-export default FormTextarea
+export default FormTextarea;

@@ -1,69 +1,51 @@
-const dirs = require('./dirs');
-const cssModule = require('./style');
-const isDev = process.env.RUN_ENV !== 'prod';
+const dirs = require("./dirs");
+const cssModule = require("./style");
 
+//创建模块，匹配规则 文档地址：https://webpack.docschina.org/configuration/module
 const rules = [
   {
-    test: /\.(t|j)sx?$/,
-    // include: [dirs.src, dirs.modules],
-    include: [new RegExp(
-      `node_modules/(?=(${[
-        // ref: https://github.com/styleguidist/react-styleguidist/pull/1327
-        'acorn-jsx',
-        'estree-walker',
-        'regexpu-core',
-        'unicode-match-property-ecmascript',
-        'unicode-match-property-value-ecmascript',
-        'react-dev-utils',
-        'ansi-styles',
-        'ansi-regex',
-        'chalk',
-        'strip-ansi',
-        'js-base64',
-        '@ctrl'
-      ].join('|')})/).*`
-    ), dirs.src],
-    use: [
-      {
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-          cacheCompression: false,
-          compact: !isDev,
-        },
-      },
-    ],
+    test: /\.tsx?$/,
+    loader: "babel-loader",
+    include: dirs.src,
+    //文档地址：https://webpack.docschina.org/loaders/babel-loader#options
+    //babel配置文档地址：https://babeljs.io/docs/en/options
+    options: {
+      cacheDirectory: true, //优先读缓存
+      cacheCompression: false, //当为true时会使用 Gzip 压缩每个 Babel transform 输出
+      compact: false, //在紧凑模式下生成代码时，将省略所有可选的换行符和空格。
+    },
   },
   {
     test: /\.(json|conf)$/,
     include: dirs.src,
     exclude: /node_modules/,
-    loader: 'json-loader'
+    loader: "json-loader",
+    type: "javascript/auto",
   },
   {
     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
     use: [
       {
-        loader: 'file-loader',
+        loader: "url-loader",
         options: {
           esModule: false,
           limit: 5 * 1000,
           include: dirs.src,
-          name: 'images/[path][name].[ext]'
-        }
-      }
-    ]
+          name: "images/[path][name].[ext]",
+        },
+      },
+    ],
   },
   {
     test: /\.ejs$/,
-    loader: 'ejs-loader',
+    loader: "ejs-loader",
     options: {
-      esModule: false
-    }
+      esModule: false,
+    },
   },
 ];
 
 module.exports = {
-  strictExportPresence: true,
-  rules: rules.concat(cssModule)
+  strictExportPresence: true, //将缺失的导出提示成错误而不是警告
+  rules: rules.concat(cssModule),
 };

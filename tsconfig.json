@@ -1,39 +1,31 @@
 {
-    "compilerOptions": {
-      "sourceMap": true,
-      "module": "esnext",
-      "target": "es5",
-      "moduleResolution": "node",
-      "types": ["node", "react", "react-dom"],
-      "allowSyntheticDefaultImports": true,
-      "experimentalDecorators": true,
-      "removeComments": true,
-      "noImplicitAny": false,
-      "baseUrl": ".",
-      "jsx": "react",
-      "allowJs": true,
-      "paths": {
-        "*": ["node_modules/*", "src/types/*"],
-        "~/*": ["src/*"]
-      },
-      "downlevelIteration": true
+  //编译器选项
+  "compilerOptions": {
+    "sourceMap": true, // 是否生成sourceMap，默认false  这个文件里保存的，是转换后代码的位置，和对应的转换前的位置。有了它，出错的时候，通过断点工具可以直接显示原始代码，而不是转换后的代码。
+    "module": "esnext", //模块化规范
+    "target": "es5", //被编译的版本
+    "moduleResolution": "node", //用于选择模块解析策略，有"node"和"classic"两种类型
+    "types": ["node", "react", "react-dom"], //用于指定需要包含的模块，只有在这里列出的模块的声明文件才会被加载
+    "allowSyntheticDefaultImports": true, //用来指定允许从没有默认导出的模块中默认导入
+    "experimentalDecorators": true, //用于指定是否启用实验性的装饰器特性
+    "removeComments": true, //用于指定是否将编译后的文件注释删掉，设为true的话即删除注释，默认为false
+    "noImplicitAny": false, //如果我们没有一些值设置明确类型，编译器会默认认为这个值为any类型，如果将noImplicitAny设为true,则如果没有设置明确的类型会报错，默认值为false
+    "baseUrl": ".", //baseUrl用于设置解析非相对模块名称的基本目录，相对模块不会受到baseUrl的影响
+    "jsx": "react", //指定jsx代码用于的开发环境
+    "allowJs": true, // 是否对js文件进行编译，默认false
+    //用于设置模块名到基于baseUrl的路径映射
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"],
+      "~/*": ["src/*"]
     },
-    "awesomeTypescriptLoaderOptions": {
-      "transpileOnly": true
-    },
-    "compileOnSave": true,
-    "include": ["src/**/*"],
-    "exclude": [
-      "config",
-      "public",
-      "node_modules",
-      "build",
-      "dist",
-      "scripts",
-      "acceptance-tests",
-      "scripts/webpack",
-      "jest",
-      "src/setupTests.ts",
-      "jest.config.js"
-    ],
-  }
+    "downlevelIteration": true //当target为"ES5"或"ES3"时，为"for-of" "spread"和"destructuring"中的迭代器提供完全支持
+  },
+  "awesomeTypescriptLoaderOptions": {
+    "transpileOnly": true
+  },
+  "compileOnSave": true,
+  //需要编译的目录
+  "include": ["src/**/*"],
+  //不被ts编译的目录
+  "exclude": ["public", "node_modules", "dist", "scripts", "scripts/webpack"]
+}

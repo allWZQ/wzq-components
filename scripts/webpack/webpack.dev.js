@@ -1,29 +1,13 @@
 const webpack = require('webpack');
 const basic = require('./webpack.base');
-const { dirs, pages, injectedParams } = require('./base');
-const path = require('path');
+const { dirs, pages } = require('./base');
+const { greatrcProcess } = require('../config');
 const plugins = [].concat(pages);
 const define = require(dirs.root + `/.greatrc.${process.env.RUN_ENV}`);
-const CopyPlugin = require('copy-webpack-plugin')
 let injectedProcessEnvData = {
   ...define,
-  ...{
-    IS_DEVELOP: !!process.env.IS_DEVELOP,
-    LOG: !!process.env.LOG,
-    ...injectedParams,
-  },
 };
-plugins.push(
-  new webpack.DefinePlugin({
-    ...Object.entries(injectedProcessEnvData).reduce(
-      (result, [key, value]) => ({
-        ...result,
-        [`process.env.${key}`]: JSON.stringify(value),
-      }),
-      {}
-    ),
-  })
-);
+plugins.push(new webpack.DefinePlugin({ ...greatrcProcess(injectedProcessEnvData) }));
 
 const config = {
   ...basic,
@@ -38,10 +22,7 @@ const config = {
 
   devtool: '#source-map',
 
-  plugins: plugins.concat([
-    new webpack.HotModuleReplacementPlugin(),
-    new CopyPlugin([]),
-  ]),
+  plugins: plugins.concat([new webpack.HotModuleReplacementPlugin()]),
 };
 
 module.exports = config;

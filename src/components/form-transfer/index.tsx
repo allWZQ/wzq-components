@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import style from './style.module.scss';
 import { Button } from 'antd';
 import LeftList from './left-list';
@@ -12,7 +12,7 @@ export interface Lists {
 }
 
 interface IProps {
-  value?: Array<Lists>
+  value?: Array<Lists>;
   onChange?: (formData) => void;
 }
 
@@ -21,29 +21,28 @@ const FormTransfer: FC<IProps> = (props: IProps) => {
   const [lists, setLists] = useState<Array<Lists>>([]);
   const [datas, setDatas] = useState([]);
   const [total, setTotal] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false)
-  const sendGetData = async (data: {
-    pageIndex: number,
-    pageSize: number,
-    keyword: string,
-  }) => {
-    setLoading(true)
-    await tool.seelp(500)
-    setLoading(false)
+  const [loading, setLoading] = useState<boolean>(false);
+  const sendGetData = async (data: { pageIndex: number; pageSize: number; keyword: string }) => {
+    setLoading(true);
+    await tool.seelp(500);
+    setLoading(false);
     return {
       code: 200,
       total: Infinity,
       data: Array.from({ length: data.pageSize }, (_, index) => {
-        return { id: (index + 1 + (data.pageIndex - 1) * data.pageSize).toString(), name: `wzq${index + 1 + (data.pageIndex - 1) * data.pageSize}` }
-      })
-    }
-  }
+        return {
+          id: (index + 1 + (data.pageIndex - 1) * data.pageSize).toString(),
+          name: `wzq${index + 1 + (data.pageIndex - 1) * data.pageSize}`,
+        };
+      }),
+    };
+  };
   const getData = async (page = PAGE, keyword?) => {
     if (!keyword && total && total === datas.length) {
       return;
     }
     if (page === PAGE) {
-      setDatas([])
+      setDatas([]);
     }
     const res = await sendGetData({
       pageIndex: page,

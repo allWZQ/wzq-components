@@ -1,126 +1,42 @@
 const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const SafePostCssParser = require('postcss-safe-parser');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CopyPlugin = require('copy-webpack-plugin');
 const basic = require('./webpack.base');
-const path = require('path');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { dirs, pages, injectedParams } = require('./base');
+const { dirs, pages } = require('./base');
+const { greatrcProcess } = require('../config');
 const appName = require(dirs.package).name;
 
 const plugins = [].concat(pages);
 const define = require(dirs.root + `/.greatrc.${process.env.RUN_ENV}`);
 let injectedProcessEnvData = {
   ...define,
-  ...{
-    LOG: !!process.env.LOG,
-    ...injectedParams,
-  },
 };
-plugins.push(
-  new webpack.DefinePlugin({
-    ...Object.entries(injectedProcessEnvData).reduce(
-      (result, [key, value]) => ({
-        ...result,
-        [`process.env.${key}`]: JSON.stringify(value),
-      }),
-      {}
-    ),
-  })
-);
-const isANAL = process.env.ANAL === '1';
-const isDev = process.env.RUN_ENV !== 'prod';
+plugins.push(new webpack.DefinePlugin({ ...greatrcProcess(injectedProcessEnvData) }));
 
 const config = {
   ...basic,
-
-  mode: 'production',
-
+  mode: 'production', //为模块和 chunk 启用确定性的混淆名称
   devtool: false,
-
+  //文档地址：https://webpack.docschina.org/configuration/output/
   output: {
-    path: dirs.dist,
-    filename: 'js/[name].[chunkhash:8].js',
-    chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
-    publicPath: '/',
+    path: dirs.dist, //输出路径
+    filename: 'js/[name].[chunkhash:8].js', //此选项决定了每个输出 bundle 的名称
+    publicPath: '/', //按需加载path
     jsonpFunction: `webpackJsonp${appName}`,
-    globalObject: 'this',
+    globalObject: 'this', //为了使 UMD 构建在浏览器和 Node.js 上均可用，应将 output.globalObject 选项设置为 'this'
   },
-
-  optimization: {
-    minimize: !isDev,
-    // 自动分割公共部分代码
-    splitChunks: {
-      chunks: 'all',
-      name: true,
-    },
-    runtimeChunk: {
-      name: (entrypoint) => {
-        return `runtime-${entrypoint.name}`;
-      },
-    },
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          parse: {
-            ecma: 8,
-          },
-          compress: {
-            ecma: 3,
-            warnings: false,
-            comparisons: false,
-            inline: 2,
-          },
-          mangle: {
-            // 支持safari
-            safari10: true,
-          },
-          keep_classnames: false,
-          keep_fnames: false,
-          output: {
-            ecma: 5,
-            comments: false,
-            // 关闭的时候对emoji有影响
-            ascii_only: true,
-          },
-        },
-        sourceMap: false,
-      }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          parse: SafePostCssParser,
-          map: false,
-          cssProcessorPluginOptions: {
-            preset: ['default', { minifyFontValues: { removeQuotes: false } }],
-          },
-        },
-      }),
-    ],
-  },
-
-  plugins: plugins.concat(
-    [
-      new MiniCssExtractPlugin({
-        filename: 'css/[name].css',
-        chunkFilename: 'css/[name].chunk.css',
-      }),
-      new CompressionPlugin({
-        algorithm: 'gzip',
-        test: /\.(js|css)$/,
-        threshold: 10240,
-        minRatio: 0.8,
-      }),
-      isANAL &&
-        new BundleAnalyzerPlugin({
-          analyzerPort: 8088,
-          openAnalyzer: false,
-        }),
-      new CopyPlugin([]),
-    ].filter(Boolean)
-  ),
+  plugins: plugins.concat([
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].chunk.css',
+    }),
+    new CompressionPlugin({
+      algorithm: 'gzip',
+      test: /\.(js|css)$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
+  ]),
 };
 
 module.exports = config;
